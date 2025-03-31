@@ -7,3 +7,7 @@ class Tool(BaseModel):
 
 class ListToolsResponse(BaseModel):
     tools: list[Tool]
+
+class ToolCallRequest(BaseModel):
+    name: str
+    arguments: dict
