@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, Body
-from mcp.types import CallToolRequestParams, CallToolResult
+from mcp.types import CallToolResult
 
+from semantictool.semantic.store import STORE
 from semantictool.toolhost import TOOL_HOST
-from semantictool.routes.models import Tool, ListToolsResponse, ToolCallRequest
+from semantictool.routes.models import SemanticToolSearchRequest, SemanticToolSearchResponse, Tool, ListToolsResponse, ToolCallRequest
+from semantictool.semantic.model import VECTORMODEL
 
 router = APIRouter(
     prefix="/tools",
@@ -32,3 +34,22 @@ async def call_tool(req: ToolCallRequest = Body(...)) -> CallToolResult:
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Tool call failed: {e}")
+    
+@router.post("/semantic")
+async def semantic_search(req: SemanticToolSearchRequest = Body(...)) -> SemanticToolSearchResponse:
+    """Search for tools based on semantic similarity."""
+    response = []
+    
+    vector = await VECTORMODEL.embed(req.query)
+    tools = await STORE.search(vector, req.quantity)
+    actualtools = await TOOL_HOST.list_tools()
+    for tool in tools:
+        for actualtool in actualtools:
+            if actualtool.name == tool:
+                response.append(Tool.model_validate({
+                    "name": actualtool.name,
+                    "description": actualtool.description,
+                    "inputSchema": actualtool.inputSchema,
+                }))
+            
+    return SemanticToolSearchResponse.model_validate({"tools": response})

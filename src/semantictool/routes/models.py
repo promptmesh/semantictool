@@ -17,3 +17,10 @@ class Server(BaseModel):
 
 class ListServersResponse(BaseModel):
     servers: list[Server]
+
+class SemanticToolSearchRequest(BaseModel):
+    query: str
+    quantity: int = 1
+
+class SemanticToolSearchResponse(BaseModel):
+    tools: list[Tool]
