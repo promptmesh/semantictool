@@ -1,0 +1,14 @@
+mcp_servers: 
+  timeserver:
+    command: uvx
+    args: ["mcp-timeserver"]
+  searxng:
+    command: uvx
+    args: ["mcp-searxng"]
+  wolframalpha:
+    command: uvx
+    args: ["mcp-wolfram-alpha"]
+    env:
+      WOLFRAM_API_KEY: "test"
+
+embedding: {}
