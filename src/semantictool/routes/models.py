@@ -11,3 +11,9 @@ class ListToolsResponse(BaseModel):
 class ToolCallRequest(BaseModel):
     name: str
     arguments: dict
+
+class Server(BaseModel):
+    name: str
+
+class ListServersResponse(BaseModel):
+    servers: list[Server]
