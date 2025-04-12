@@ -13,6 +13,7 @@ dependencies = [
     "mcp>=1.6.0",
     "pyyaml>=6.0.2",
     "sentence-transformers>=4.0.1",
+    "tqdm>=4.67.1",
     "uvicorn>=0.34.0",
 ]
 

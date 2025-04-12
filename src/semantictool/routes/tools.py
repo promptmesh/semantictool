@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException, Body
 from mcp.types import CallToolResult
 
+from semantictool.semantic.clusters import CLUSTER
 from semantictool.semantic.store import STORE
 from semantictool.toolhost import TOOL_HOST
-from semantictool.routes.models import SemanticToolSearchRequest, SemanticToolSearchResponse, Tool, ListToolsResponse, ToolCallRequest
+from semantictool.routes.models import SemanticClustersResponse, SemanticToolSearchRequest, SemanticToolSearchResponse, Tool, ListToolsResponse, ToolCallRequest
 from semantictool.semantic.model import VECTORMODEL
 
 router = APIRouter(
@@ -53,3 +54,11 @@ async def semantic_search(req: SemanticToolSearchRequest = Body(...)) -> Semanti
                 }))
             
     return SemanticToolSearchResponse.model_validate({"tools": response})
+
+@router.post("/semantic/clusters")
+async def semantic_clusters() -> SemanticClustersResponse:
+    """Discover duplicate tools via semantic similarity using DBSCAN."""
+    clusters = await CLUSTER.get()
+    if not clusters:
+        raise HTTPException(status_code=500, detail="No clusters available")
+    return SemanticClustersResponse.model_validate({"clusters": list(clusters.values())})

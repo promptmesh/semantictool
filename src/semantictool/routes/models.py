@@ -24,3 +24,7 @@ class SemanticToolSearchRequest(BaseModel):
 
 class SemanticToolSearchResponse(BaseModel):
     tools: list[Tool]
+
+
+class SemanticClustersResponse(BaseModel):
+    clusters: list[list[str]]

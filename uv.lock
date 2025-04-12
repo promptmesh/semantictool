@@ -873,6 +873,7 @@ dependencies = [
     { name = "mcp" },
     { name = "pyyaml" },
     { name = "sentence-transformers" },
+    { name = "tqdm" },
     { name = "uvicorn" },
 ]
 
@@ -883,6 +884,7 @@ requires-dist = [
     { name = "mcp", specifier = ">=1.6.0" },
     { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "sentence-transformers", specifier = ">=4.0.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
     { name = "uvicorn", specifier = ">=0.34.0" },
 ]
 

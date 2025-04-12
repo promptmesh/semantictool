@@ -22,5 +22,8 @@ class AsyncSimpleVectorStore:
         sims = np.dot(np.stack([v for _, v in items]), query_norm)
         top_k = np.argsort(sims)[::-1][:k]
         return [items[i][0] for i in top_k]
+    
+    async def get_all(self) -> list[tuple[str, np.ndarray]]:
+        return list(self.vectors.items())
 
 STORE = AsyncSimpleVectorStore(dim=CONFIG.embedding.dim)
