@@ -12,3 +12,6 @@ wheels/
 # config
 config.yaml
 config.yml
+
+# repomix
+repomix-output.xml
