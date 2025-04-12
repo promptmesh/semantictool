@@ -20,4 +20,4 @@ ADD . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen
 
-ENTRYPOINT [ "uv", "run", "semantictool" ]
+ENTRYPOINT [ "uv", "run", "--offline", "semantictool" ]

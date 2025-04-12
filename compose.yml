@@ -4,9 +4,17 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./config.yml:/config.yaml
+      - ./config.yml:/config.yaml # config file
+      - uv-cache:/root/.cache/uv
+      - hf-cache:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
 
   redis:
     image: redis
     ports:
       - "6379:6379"
+
+volumes:
+  uv-cache:
+  hf-cache:
