@@ -11,6 +11,10 @@ class vectorModel(BaseModel):
     model_name: str = "all-MiniLM-L6-v2"
     dim: int = 384
 
+class RedisConfig(BaseModel):
+    url: str = "redis://redis:6379"
+
 class config(BaseModel):
     mcp_servers: dict[str, transportTypes]
     embedding: vectorModel
+    redis: RedisConfig = RedisConfig()
