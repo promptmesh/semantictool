@@ -14,7 +14,12 @@ class vectorModel(BaseModel):
 class RedisConfig(BaseModel):
     url: str = "redis://redis:6379"
 
+class telemetryConfig(BaseModel):
+    otel_endpoint: str = "http://host.docker.internal:4318/v1/traces"
+    service_name: str = "semantictool"
+
 class config(BaseModel):
     mcp_servers: dict[str, transportTypes]
     embedding: vectorModel
     redis: RedisConfig = RedisConfig()
+    telemetry: telemetryConfig = telemetryConfig()
